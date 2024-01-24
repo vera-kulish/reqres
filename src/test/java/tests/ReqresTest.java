@@ -105,4 +105,10 @@ public class ReqresTest {
         String error = new LoginAdapter().loginUnsuccessful();
         assertEquals(error, "{\"error\":\"Missing password\"}");
     }
+
+    @Test
+    public void delayedResponse() {
+        UserList userList = new UsersAdapter().getListWithDelay();
+        System.out.println(userList.getData());
+    }
 }

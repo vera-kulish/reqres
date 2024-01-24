@@ -6,6 +6,7 @@ import models.UserList;
 import models.UserResponse;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.greaterThan;
 
 public class UsersAdapter {
 
@@ -90,5 +91,16 @@ public class UsersAdapter {
         then().
                 log().all().
                 statusCode(204);
+    }
+
+    public UserList getListWithDelay() {
+        return given().
+        when().
+                get("https://reqres.in/api/users?delay=3").
+        then().
+                log().all().
+                statusCode(200).
+                time(greaterThan(3000L)).
+                extract().as(UserList.class);
     }
 }
